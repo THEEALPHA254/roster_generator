@@ -41,12 +41,12 @@ roles = {
                 "Victor Rueben", "Mirriam Githinji", "Joy Wanjiku", "Faith Maina", "Hilda Nyakinyua", "Sharlet Maithya"],
 
     "Hospitality": ["Keel Kelvin", "David Kariuki", "Njoroge Waithaka", "David Gachuru", 
-                "Titus Maweu", "Eliud Muiruri", "Daniel Murigi", "Pacifique Birori", 
-                "Anthony Muriithi", "Dennis Mwangi", "Patrick Collins", "Austin Kagema",
-                "Grace Niyigena", "Grace Muriithi", "Edward Kibugi", "Boniface Theuri", 
-                "Kevin Kagema", "Wangari Njuguna", "Sylvia Mumbi", "Cynthia Wanjiru", 
-                "Dennis Karuti", "Vickram Kimwere", "Maureen Gachuru", "Mercy Makena", 
-                "Victor Rueben", "Mirriam Githinji", "Joy Wanjiku", "Faith Maina", "Hilda Nyakinyua", "Sharlet Maithya"],
+    "Titus Maweu", "Eliud Muiruri", "Daniel Murigi", "Pacifique Birori", 
+    "Anthony Muriithi", "Dennis Mwangi", "Patrick Collins", "Austin Kagema",
+    "Grace Niyigena", "Grace Muriithi", "Edward Kibugi", "Boniface Theuri", 
+    "Kevin Kagema", "Wangari Njuguna", "Sylvia Mumbi", "Cynthia Wanjiru", 
+    "Dennis Karuti", "Vickram Kimwere", "Maureen Gachuru", "Mercy Makena", 
+    "Victor Rueben", "Mirriam Githinji", "Joy Wanjiku", "Faith Maina", "Hilda Nyakinyua", "Sharlet Maithya"],
     
     "Social Media": ["Victor Rueben"],
 }
@@ -56,8 +56,12 @@ def generate_roster(available_people, num_sundays, excluded_members):
     producer_index = 0
     all_sundays = []
 
-    # Exclude missing members from the entire pool
+    # Exclude missing members from the entire pool of available people
     available_people = [person for person in available_people if person not in excluded_members]
+
+    # Exclude missing members from the roles as well
+    for role in roles:
+        roles[role] = [person for person in roles[role] if person not in excluded_members]
 
     for _ in range(num_sundays):
         sunday_roster = []
