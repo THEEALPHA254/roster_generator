@@ -4,10 +4,10 @@ from .models import Member, Role, Roster
 class RoleSerializer(serializers.ModelSerializer):
     class Meta:
         model = Role
-        fields = ['id', 'name']
+        fields = '__all__'
 
 class MemberSerializer(serializers.ModelSerializer):
-    roles = RoleSerializer(many=True)
+    roles = serializers.PrimaryKeyRelatedField(queryset=Role.objects.all(), many=True)
 
     class Meta:
         model = Member
@@ -19,4 +19,4 @@ class RosterSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Roster
-        fields = ['id', 'sunday_date', 'members', 'roles']
+        fields = '__all__'
