@@ -1,5 +1,6 @@
+# serializers.py
 from rest_framework import serializers
-from .models import Member, Role, Roster
+from .models import Member, Role, Roster, RosterAssignment
 
 class RoleSerializer(serializers.ModelSerializer):
     class Meta:
@@ -13,10 +14,17 @@ class MemberSerializer(serializers.ModelSerializer):
         model = Member
         fields = ['id', 'name', 'roles']
 
+class RosterAssignmentSerializer(serializers.ModelSerializer):
+    member = serializers.StringRelatedField()
+    role = serializers.StringRelatedField()
+
+    class Meta:
+        model = RosterAssignment
+        fields = ['member', 'role']
+
 class RosterSerializer(serializers.ModelSerializer):
-    members = MemberSerializer(many=True)
-    roles = RoleSerializer(many=True)
+    assignments = RosterAssignmentSerializer(many=True, read_only=True)
 
     class Meta:
         model = Roster
-        fields = '__all__'
+        fields = ['id', 'sunday_date', 'assignments']
